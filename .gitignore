@@ -1,1 +1,5 @@
 node_modules/
+
+# Ignore content of folders data and img/screenshots
+data/*
+img/screenshots/*
