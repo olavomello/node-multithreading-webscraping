@@ -57,8 +57,8 @@ Start app
 
 ## Links
 
-<a href="https://www.tabnews.com.br/olavomello/criei-um-app-tray-com-electron-simples-e-bem-util-para-mim-talvez-tambem-seja-para-voce" target="_blank">Tabnews</a><br>
-<a href="https://olavomello.medium.com/criei-um-app-tray-com-electron-simples-e-bem-%C3%BAtil-para-mim-talvez-tamb%C3%A9m-seja-para-voc%C3%AA-1fa25db53533" target="_blank">Medium</a>
+<a href="https://www.tabnews.com.br/olavomello/fiz-um-web-scraping-com-multithreading-no-tabnews" target="_blank">Tabnews</a><br>
+<a href="https://olavomello.medium.com/nodejs-multithreading-web-scraping-9ed1d37c2969" target="_blank">Medium</a>
 
 ## Let's stay connected
 
