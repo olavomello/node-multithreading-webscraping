@@ -1,49 +1,42 @@
-const cluster = require('cluster');
-const numCPUs = require('os').cpus().length;
-const puppeteer = require('puppeteer');
+const cluster = require("cluster");
+const numCPUs = require("os").cpus().length;
+const Worker = require("./worker");
 
-// Base URL for the search results page
-const BASE_URL = 'https://www.google.com/search?q=';
+// Page count
+let page = 0;
 
 if (cluster.isMaster) {
+  // Master process ***
   // Create a worker for each CPU
   for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
+    // Add worker to cluster
+    try {
+      cluster.fork();
+      cluster.on("online", (worker) => {
+        console.log(new Date(), " :: ", `Worker ${worker.process.pid} started`);
+      
+        // Page
+        page++;        
+
+        // Execute
+        worker.send({ page });
+      });
+    } catch (e) {}
   }
 
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`Worker ${worker.process.pid} died`);
+  // On exit
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(new Date(), " :: ", `Worker ${worker.process.pid} died`);
     cluster.fork();
   });
 } else {
-  (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+  // Worker ***
+  const workerPID = process.pid;
 
-    // Navigate to Google search results page
-    await page.goto(BASE_URL + 'brasil');
-
-    // Extract search results
-    const searchResults = await page.$$eval('.g', (elements) => {
-      const results = [];
-
-      for (let i = 0; i < elements.length; i++) {
-        const titleElement = elements[i].querySelector('h3');
-        const linkElement = elements[i].querySelector('a');
-
-        if (titleElement && linkElement) {
-          results.push({
-            title: titleElement.innerText,
-            link: linkElement.href
-          });
-        }
-      }
-
-      return results;
-    });
-
-    console.log(searchResults);
-
-    await browser.close();
-  })();
+  process.on('message', ({page}) => {
+    console.log(`Received message in worker process ${cluster.worker.id}:`, page);
+    
+    // Run worker
+    Worker(workerPID);
+  });  
 }
