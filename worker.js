@@ -5,19 +5,20 @@ async function Worker(workerPID, numPage = 1){
   console.log(new Date(), ' :: ', `Worker ${workerPID} running...`);
 
   // Base URL for the search results page
-  const BASE_URL = 'https://www.tabnews.com.br/pagina/';
-
+  const BASE_URL = 'https://www.tabnews.com.br/pagina/'+ ( !numPage || 1 );
+  
   // Launch browser
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  // Navigate to Google search results page ( empty search )
-  await page.goto(BASE_URL + numPage );
+  console.log(new Date(), ' :: ', 'Page', page);
+
+  // Navigate to URL
+  await page.goto(BASE_URL);
 
   // Extract search results
-  const data = await page.$$eval('article', (elements) => {
+  const data = await page.$$('#header', (elements) => {
     const results = [];
-
     // Limit results listed
     //  LIMIT || elements.length ==> total data 
     const LIMIT = 10;
