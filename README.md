@@ -6,7 +6,14 @@
             alt="Contact me"></a>
 </p>
 
-<div align="center"><img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*PHyL96esrfTneTBHubMdWQ.png" alt="Nodejs Asynchronous Multithreading Web Scraping" title="Nodejs Asynchronous Multithreading Web Scraping"/></div>
+<div align="center">
+
+<img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*PHyL96esrfTneTBHubMdWQ.png" alt="Nodejs Asynchronous Multithreading Web Scraping" title="Nodejs Asynchronous Multithreading Web Scraping"/>
+
+## Reading online data multiple times faster ;)
+<img src="https://miro.medium.com/v2/resize:fit:640/1*jRwlogw8w5Fz6L_PY7970w.gif" alt="Nodejs Asynchronous Multithreading Web Scraping" title="Nodejs Asynchronous Multithreading Web Scraping"/>
+
+</div>
 
 
 ## About 
