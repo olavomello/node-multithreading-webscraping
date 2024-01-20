@@ -3,15 +3,21 @@ const fs = require("fs");
 
 // Helpers
 const { log } = require("./helpers");
+// Screenshots path
+const PATH_SS = "img/screenshots/";
+// Data path
+const PATH_DATA = "data/";
+// Create folders if not present
+if (!fs.existsSync(PATH_SS)) {
+  fs.mkdirSync(PATH_SS, { recursive: true });
+}
+if (!fs.existsSync(PATH_DATA)) {
+  fs.mkdirSync(PATH_DATA);
+}
 
 async function Worker(workerPID, params) {
   log(workerPID, { status: `Running with params`, params });
 
-  // Constants
-  // Screenshots path
-  const PATH_SS = "img/screenshots/";
-  // Data path
-  const PATH_DATA = "data/";
   // Element load target
   const EL_LOAD = "#header";
   // Element target
@@ -39,7 +45,7 @@ async function Worker(workerPID, params) {
   log(workerPID, { status: `Page loaded` });
 
   // Escape screenshot page to debug
-  await page.screenshot({ path: PATH_SS + numPage +'.png' });
+  await page.screenshot({ path: PATH_SS + numPage + '.png' });
 
   // Extract search results
   const elements = await page.$$(EL);
@@ -77,12 +83,12 @@ async function Worker(workerPID, params) {
   await browser.close();
 
   // Save Json file
-  try{
+  try {
     // Save file
     const file = PATH_DATA + numPage + ".json";
     log(workerPID, { file });
 
-    fs.writeFileSync( file, JSON.stringify(jsonRet));
+    fs.writeFileSync(file, JSON.stringify(jsonRet));
     // File saved
     log(workerPID, { status: `Json file saved` });
   } catch (err) {
